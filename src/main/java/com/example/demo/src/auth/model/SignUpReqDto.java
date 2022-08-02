@@ -7,7 +7,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter @Setter
 public class SignUpReqDto {
-    private String name;
+    private String nickName;
     private String email;
-    private String refreshkey;
+    private String birthday;
+    private String refreshToken;
 }

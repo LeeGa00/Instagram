@@ -10,40 +10,34 @@ import javax.sql.DataSource;
 @Repository
 public class AuthDao {
     private JdbcTemplate jdbcTemplate;
-
     @Autowired
     public void setDataSource(DataSource dataSource) {this.jdbcTemplate = new JdbcTemplate(dataSource);}
-
-
-    /*
-        나중에 작성 필요
-     */
     public Integer existsEmail(String email) {
-        String existsEmailQuery = "select exists(select email from User where email = ?)";
+        String existsEmailQuery = "SELECT exists(select email FROM User WHERE email = ?)";
         String existsEmailParams = email;
         return this.jdbcTemplate.queryForObject(existsEmailQuery,
                 int.class,
                 existsEmailParams);
     }
 
-    public Integer updateRefreshkey(SignUpReqDto siginUpReq) {
-        String updateRefreshTokenQuery = "UPDATE User as u\n" +
-                "SET u.refreshKey = ?\n" +
+    public Integer updateRefreshToken(SignUpReqDto siginUpReq) {
+        String updateRefreshTokenQuery = "UPDATE User AS u\n" +
+                "SET u.refreshToken = ?\n" +
                 "WHERE u.email =?";
         SignUpReqDto signUpReqDtoParam = siginUpReq;
 
-        return this.jdbcTemplate.update(updateRefreshTokenQuery, signUpReqDtoParam.getRefreshkey()
+        return this.jdbcTemplate.update(updateRefreshTokenQuery, signUpReqDtoParam.getRefreshToken()
         ,signUpReqDtoParam.getEmail());
     }
 
-    public void Sinup(SignUpReqDto siginUpReq) {
-        String createUserQuery = "insert into User (refreshKey, name, email) VALUES (?, ?, ?)";
-        Object[] signUpParams = new Object[]{siginUpReq.getRefreshkey(),siginUpReq.getName(),siginUpReq.getEmail()};
+    public void SinUp(SignUpReqDto siginUpReq) {
+        String createUserQuery = "INSERT INTO User (nickName, email, birthday, refreshToken) VALUES (?, ?, ?, ?)";
+        Object[] signUpParams = new Object[]{siginUpReq.getNickName(),siginUpReq.getEmail(), siginUpReq.getBirthday(), siginUpReq.getRefreshToken()};
         this.jdbcTemplate.update(createUserQuery, signUpParams);
     }
 
     public Integer findUserByEmail(String email) {
-        String findUserQuery = "select userIdx from User where email = ?";
+        String findUserQuery = "SELECT userIdx FROM User WHERE email = ?";
         String existsEmailParams = email;
         return this.jdbcTemplate.queryForObject(findUserQuery,
                 int.class,

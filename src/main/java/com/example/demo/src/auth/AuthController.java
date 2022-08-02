@@ -2,14 +2,10 @@ package com.example.demo.src.auth;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.auth.model.*;
-
+import com.example.demo.src.auth.model.SignUpReq;
+import com.example.demo.src.auth.model.SignupRes;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -34,12 +30,15 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/kakao/callback")
-    public String kakaoLogin(String code) {
-        // code는 카카오 서버로부터 받은 인가 코드
-        log.info("kakaoLogin");
-        authService.kakaoLogin(code);
-        return "redirect:/";
+    @ResponseBody
+    @GetMapping({"/kakao"})
+    public BaseResponse<SignupRes> kakaoCallback(@RequestParam String code) throws BaseException {
+        try {
+            SignUpReq signUpReq = authService.getKakaoAccessToken(code);
+            SignupRes signupRes = authService.kakoSiginUp(signUpReq);
+            return new BaseResponse(signupRes);
+        } catch (BaseException var4) {
+            return new BaseResponse(var4.getStatus());
+        }
     }
-
 }

@@ -13,11 +13,14 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static com.example.demo.config.BaseResponseStatus.*;
 
 @Slf4j
 @Service
@@ -29,6 +32,10 @@ public class AuthUtils {
     public AuthUtils(AuthDao authDao) {
         this.authDao = authDao;
     }
+
+    /**
+    * kauth.kakao.com/oauth/authorize?client_id=57b970a2a50db63a35052b86da6d2cd3&redirect_uri=http://localhost:9000/auth/kakao&response_type=code
+    **/
 
     public String getAccessToken(){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
@@ -46,20 +53,18 @@ public class AuthUtils {
         }
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {
+            System.out.println("accessToken = " + accessToken);
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
-            //    요청에 필요한 Header에 포함될 내용
+            //요청에 필요한 Header에 포함될 내용
             conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = conn.getResponseCode();
-            if(responseCode==200){
-                throw new BaseException(KAKAO_ACCESS_FAIL);
-            }
-            log.debug("kakao response 실패 : responseCode : " + responseCode);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            System.out.println("responseCode = " + responseCode);
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
 
             String line = "";
             String result = "";
@@ -72,10 +77,8 @@ public class AuthUtils {
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
 
-            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
-            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
             Integer userIdx = authDao.findUserByEmail(email);
@@ -84,54 +87,7 @@ public class AuthUtils {
             }else{
                 return userIdx;
             }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new BaseException(IO_EXCEPTION);
-        }
-    }
-    public Integer getUserIdxNaver() throws BaseException {
-        String accessToken = getAccessToken();
-        if (accessToken == null || accessToken.length() == 0) {
-            throw new BaseException(EMPTY_ACCESS_KEY);
-        }
-        String reqURL = "https://openapi.naver.com/v1/nid/me";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
 
-            //    요청에 필요한 Header에 포함될 내용
-            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-
-            int responseCode = conn.getResponseCode();
-            if(responseCode==200){
-                throw new BaseException(KAKAO_ACCESS_FAIL);
-            }
-            log.debug("kakao response 실패 : responseCode : " + responseCode);
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String line = "";
-            String result = "";
-
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            System.out.println("response body : " + result);
-
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-
-            JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
-
-            String nickname = response.getAsJsonObject().get("name").getAsString();
-            String email = response.getAsJsonObject().get("email").getAsString();
-            Integer userIdx = authDao.findUserByEmail(email);
-            if(userIdx ==null){
-                throw new BaseException(BaseResponseStatus.EMAIL_NOT_EXIST);
-            }else{
-                return userIdx;
-            }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             throw new BaseException(IO_EXCEPTION);

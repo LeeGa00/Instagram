@@ -40,15 +40,18 @@ public enum BaseResponseStatus {
 
     // [POST] /users
     DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
-    FAILED_TO_LOGIN(false,3014,"없는 아이디거나 비밀번호가 틀렸습니다."),
+    EMAIL_NOT_EXIST(false, 3014 ,"이메일이 존재하지 않습니다." ),
+    FAILED_TO_LOGIN(false,3015,"없는 아이디거나 비밀번호가 틀렸습니다."),
 
-
+    EMPTY_ACCESS_KEY(false, 3020, "Accesskey를 포함하지 않았습니다."),
+    KAKAO_ACCESS_FAIL(false,3030 ,"카카오 인증에 실패하였습니다." ),
 
     /**
      * 4000 : Database, Server 오류
      */
     DATABASE_ERROR(false, 4000, "데이터베이스 연결에 실패하였습니다."),
     SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),
+    IO_EXCEPTION(false, 4002, "입출력 오류가 발생하였습니다."),
 
     //[PATCH] /users/{userIdx}
     MODIFY_FAIL_USERNAME(false,4014,"유저네임 수정 실패"),

@@ -1,11 +1,14 @@
 package com.example.demo.src.auth;
 import com.example.demo.config.BaseException;
+import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.auth.model.SignUpReq;
 import com.example.demo.src.auth.model.SignUpReqDto;
 import com.example.demo.src.auth.model.SignupRes;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +22,6 @@ import static com.example.demo.config.BaseResponseStatus.IO_EXCEPTION;
 @Service
 @Slf4j
 public class AuthService {
-
-
     private AuthDao authDao;
 
     public AuthService(AuthDao authDao) {
@@ -37,7 +38,7 @@ public class AuthService {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
 
-                //    요청에 필요한 Header에 포함될 내용
+                // 요청에 필요한 Header에 포함될 내용
                 conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 
                 int responseCode = conn.getResponseCode();
@@ -63,13 +64,16 @@ public class AuthService {
 
                 String nickname = properties.getAsJsonObject().get("nickname").getAsString();
                 String email = kakao_account.getAsJsonObject().get("email").getAsString();
-                SignUpReqDto signUpReqDto = new SignUpReqDto(nickname,email, signUpReq.getRefreshToken());
+                String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
+
+                SignUpReqDto signUpReqDto = new SignUpReqDto(nickname, email, birthday, signUpReq.getRefreshToken());
+
                 if(authDao.existsEmail(email)==1){
                     Integer findEmail = authDao.findUserByEmail(email);
-                    authDao.updateRefreshkey(signUpReqDto);
+                    authDao.updateRefreshToken(signUpReqDto);
                     return new SignupRes(accessToken);
                 }else{
-                    authDao.Sinup(signUpReqDto);
+                    authDao.SinUp(signUpReqDto);
                     return new SignupRes(accessToken);
                 }
             } catch (IOException e) {
@@ -80,49 +84,44 @@ public class AuthService {
         }
     }
 
-    public SignupRes naverSiginUp(SignUpReq signUpReq) throws BaseException {
+    public SignUpReq getKakaoAccessToken(String code) throws BaseException {
+        String access_Token = "";
+        String refresh_Token = "";
+        String reqURL = "https://kauth.kakao.com/oauth/token";
+
         try {
-            String apiURL = "https://openapi.naver.com/v1/nid/me";
-            String accessToken = signUpReq.getAccessToken();
-            try {
-                URL url = new URL(apiURL);
-                HttpURLConnection con = (HttpURLConnection)url.openConnection();
-                con.setRequestMethod("GET");
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("grant_type=authorization_code");
+            sb.append("&client_id=9d43614281f594c0c1fcca4d5784d58d");
+            sb.append("&redirect_uri=http://localhost:9000/auth/kakao");
+            sb.append("&code=" + code);
+            bw.write(sb.toString());
+            bw.flush();
+            int responseCode = conn.getResponseCode();
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
 
-                //    요청에 필요한 Header에 포함될 내용
-                con.setRequestProperty("Authorization", "Bearer " + accessToken);
-
-                int responseCode = con.getResponseCode();
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                String line = "";
-                String result = "";
-
-                while ((line = br.readLine()) != null) {
-                    result += line;
-                }
-                JsonParser parser = new JsonParser();
-                JsonElement element = parser.parse(result);
-
-                JsonObject response = element.getAsJsonObject().get("response").getAsJsonObject();
-
-                String nickname = response.getAsJsonObject().get("name").getAsString();
-                String email = response.getAsJsonObject().get("email").getAsString();
-                SignUpReqDto signUpReqDto = new SignUpReqDto(nickname, email, signUpReq.getRefreshToken());
-                if (authDao.existsEmail(email) != null) {
-                    authDao.updateRefreshkey(signUpReqDto);
-                    return new SignupRes(signUpReq.getAccessToken());
-                } else {
-                    authDao.Sinup(signUpReqDto);
-                    return new SignupRes(signUpReq.getAccessToken());
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            String result;
+            for(result = ""; (line = br.readLine()) != null; result = result + line) {
             }
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
+
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+            access_Token = element.getAsJsonObject().get("access_token").getAsString();
+            refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+            System.out.println("access_Token = " + access_Token);
+            System.out.println("refresh_Token = " + refresh_Token);
+            br.close();
+            bw.close();
+            return new SignUpReq(access_Token, refresh_Token);
+        } catch (IOException var15) {
+            System.out.println("var15 = " + var15);
+            throw new BaseException(BaseResponseStatus.IO_EXCEPTION);
         }
     }
-
 }
