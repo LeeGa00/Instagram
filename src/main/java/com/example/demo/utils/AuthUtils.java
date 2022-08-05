@@ -33,10 +33,6 @@ public class AuthUtils {
         this.authDao = authDao;
     }
 
-    /**
-    * kauth.kakao.com/oauth/authorize?client_id=57b970a2a50db63a35052b86da6d2cd3&redirect_uri=http://localhost:9000/auth/kakao&response_type=code
-    **/
-
     public String getAccessToken(){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         return request.getHeader("ACCESS-TOKEN");
@@ -82,14 +78,14 @@ public class AuthUtils {
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
             Integer userIdx = authDao.findUserByEmail(email);
-            if(userIdx ==null){
+
+            if (userIdx == null){
                 throw new BaseException(BaseResponseStatus.EMAIL_NOT_EXIST);
-            }else{
+            } else{
                 return userIdx;
             }
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new BaseException(IO_EXCEPTION);
         }
     }

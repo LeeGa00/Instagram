@@ -10,6 +10,8 @@ com/example/demo/src/auth/model/SignUpReqDto.java
  com.example.demo.src.auth.model.SignUpReqDto
 com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
+com/example/demo/src/feed/FeedDao.java
+ com.example.demo.src.feed.FeedDao
 com/example/demo/src/user/model/PostLoginRes.java
  com.example.demo.src.user.model.PostLoginRes
 com/example/demo/src/user/UserDao.java
@@ -38,6 +40,8 @@ com/example/demo/src/user/UserController.java
  com.example.demo.src.user.UserController
 com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
+com/example/demo/src/feed/FeedController.java
+ com.example.demo.src.feed.FeedController
 com/example/demo/src/auth/AuthController.java
  com.example.demo.src.auth.AuthController
 com/example/demo/src/user/model/DeleteUserRes.java
