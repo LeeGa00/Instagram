@@ -28,7 +28,7 @@ public class AuthService {
         this.authDao = authDao;
     }
 
-    public SignupRes kakoSiginUp(SignUpReq signUpReq) throws BaseException {
+    public SignupRes kakaoSiginUp(SignUpReq signUpReq) throws BaseException {
         try {
             String reqURL = "https://kapi.kakao.com/v2/user/me";
             String accessToken = signUpReq.getAccessToken();
@@ -64,16 +64,16 @@ public class AuthService {
 
                 String nickname = properties.getAsJsonObject().get("nickname").getAsString();
                 String email = kakao_account.getAsJsonObject().get("email").getAsString();
-                String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
 
-                SignUpReqDto signUpReqDto = new SignUpReqDto(nickname, email, birthday, signUpReq.getRefreshToken());
+                SignUpReqDto signUpReqDto = new SignUpReqDto(nickname, email, signUpReq.getRefreshToken());
 
-                if(authDao.existsEmail(email)==1){
+                if (authDao.existsEmail(email) == 1){
                     Integer findEmail = authDao.findUserByEmail(email);
                     authDao.updateRefreshToken(signUpReqDto);
                     return new SignupRes(accessToken);
                 }else{
                     authDao.SinUp(signUpReqDto);
+                    System.out.println("실행됨");
                     return new SignupRes(accessToken);
                 }
             } catch (IOException e) {
@@ -97,7 +97,7 @@ public class AuthService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=9d43614281f594c0c1fcca4d5784d58d");
+            sb.append("&client_id=");
             sb.append("&redirect_uri=http://localhost:9000/auth/kakao");
             sb.append("&code=" + code);
             bw.write(sb.toString());

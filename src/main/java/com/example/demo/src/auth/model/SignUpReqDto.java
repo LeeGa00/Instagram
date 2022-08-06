@@ -9,6 +9,5 @@ import lombok.Setter;
 public class SignUpReqDto {
     private String nickName;
     private String email;
-    private String birthday;
     private String refreshToken;
 }

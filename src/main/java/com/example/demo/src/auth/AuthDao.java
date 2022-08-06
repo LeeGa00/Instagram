@@ -30,9 +30,9 @@ public class AuthDao {
         ,signUpReqDtoParam.getEmail());
     }
 
-    public void SinUp(SignUpReqDto siginUpReq) {
-        String createUserQuery = "INSERT INTO User (nickName, email, birthday, refreshToken) VALUES (?, ?, ?, ?)";
-        Object[] signUpParams = new Object[]{siginUpReq.getNickName(),siginUpReq.getEmail(), siginUpReq.getBirthday(), siginUpReq.getRefreshToken()};
+    public void SinUp(SignUpReqDto signUpReq) {
+        String createUserQuery = "INSERT INTO User (nickName, email, refreshToken) VALUES (?, ?, ?)";
+        Object[] signUpParams = new Object[]{signUpReq.getNickName(),signUpReq.getEmail(), signUpReq.getRefreshToken()};
         this.jdbcTemplate.update(createUserQuery, signUpParams);
     }
 

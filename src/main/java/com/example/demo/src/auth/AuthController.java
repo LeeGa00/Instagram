@@ -23,10 +23,10 @@ public class AuthController {
     @PostMapping(value = "/kakao/signup")
     public BaseResponse<SignupRes> kakaoSignup(@RequestBody SignUpReq signUpReq) throws BaseException {
         try{
-            SignupRes signupRes = authService.kakoSiginUp(signUpReq);
+            SignupRes signupRes = authService.kakaoSiginUp(signUpReq);
             return new BaseResponse<>(signupRes);
         } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
+            return new BaseResponse<>(exception.getStatus());
         }
     }
 
@@ -35,7 +35,7 @@ public class AuthController {
     public BaseResponse<SignupRes> kakaoCallback(@RequestParam String code) throws BaseException {
         try {
             SignUpReq signUpReq = authService.getKakaoAccessToken(code);
-            SignupRes signupRes = authService.kakoSiginUp(signUpReq);
+            SignupRes signupRes = authService.kakaoSiginUp(signUpReq);
             return new BaseResponse(signupRes);
         } catch (BaseException var4) {
             return new BaseResponse(var4.getStatus());
