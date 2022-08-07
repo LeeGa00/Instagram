@@ -36,7 +36,7 @@ public class UserProvider {
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
-                    }
+    }
 
 
     public GetUserRes getUsersByIdx(int userIdx) throws BaseException{
@@ -57,7 +57,5 @@ public class UserProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
-
 
 }

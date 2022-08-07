@@ -66,6 +66,12 @@ public class UserDao {
         return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
     }
 
+    public void postUserInfo(int userIdx, String name, String profileImg, String birthday, String phone) {
+        String postUserInfoQuery = "UPDATE User AS u SET u.name = ?, u.profileImg = ?, u.birthday = ? u.phone = ? WHERE u.userIdx = ?";
+        Object[] userInfoParams = new Object[]{name, profileImg, birthday, phone, userIdx};
+        this.jdbcTemplate.update(postUserInfoQuery, userInfoParams);
+    }
+
     public int checkEmail(String email){
         String checkEmailQuery = "select exists(select email from User where email = ?)";
         String checkEmailParams = email;

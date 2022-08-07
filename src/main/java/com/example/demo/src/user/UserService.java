@@ -3,6 +3,7 @@ package com.example.demo.src.user;
 
 import com.example.demo.config.BaseException;
 
+import com.example.demo.src.auth.model.UserInfoReq;
 import com.example.demo.src.user.model.PatchUserReq;
 import com.example.demo.src.user.model.PostUserReq;
 import com.example.demo.src.user.model.PostUserRes;
@@ -49,10 +50,18 @@ public class UserService {
         }
         try{
             int userIdx = userDao.createUser(postUserReq);
-            //jwt 발급.
+            //jwt 발급
             // TODO: jwt는 다음주차에서 배울 내용입니다!
             String jwt = jwtService.createJwt(userIdx);
-            return new PostUserRes(jwt,userIdx);
+            return new PostUserRes(jwt, userIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void postUserInfo (int userIdx, UserInfoReq userInfoReq) throws BaseException {
+        try {
+            userDao.postUserInfo(userIdx, userInfoReq.getName(), userInfoReq.getProfileImg(), userInfoReq.getBirthday(), userInfoReq.getPhone());
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }

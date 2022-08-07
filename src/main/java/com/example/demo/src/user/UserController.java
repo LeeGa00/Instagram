@@ -2,6 +2,7 @@ package com.example.demo.src.user;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.src.auth.model.UserInfoReq;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.example.demo.config.BaseResponseStatus.POST_USERS_EMPTY_EMAIL;
 import static com.example.demo.config.BaseResponseStatus.POST_USERS_INVALID_EMAIL;
+import static com.example.demo.config.BaseResponseStatus.INVALID_USER_JWT;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
@@ -25,15 +27,11 @@ public class UserController {
     @Autowired
     private final JwtService jwtService;
 
-
-    //https://velog.io/@shwncho/Spring-Boot-%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A1%9C%EA%B7%B8%EC%9D%B8-APIoAuth-2.0
-
     public UserController(UserProvider userProvider, UserService userService, JwtService jwtService){
         this.userProvider = userProvider;
         this.userService = userService;
         this.jwtService = jwtService;
     }
-
 
     /**
      * 회원 조회 API
@@ -62,11 +60,15 @@ public class UserController {
         }
     }
 
+    /**
+     * 유저 정보 조회 API
+     * [GET] /users/:userIdx
+     * @return BaseResponse<GetUserRes>
+     */
     @ResponseBody
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/users/:userIdx
+    @GetMapping("/{userIdx}")
     public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx")int userIdx) {
         try{
-
             GetUserRes getUsersRes = userProvider.getUsersByIdx(userIdx);
             return new BaseResponse<>(getUsersRes);
         } catch(BaseException exception){
@@ -81,7 +83,7 @@ public class UserController {
      */
     // Body
     @ResponseBody
-    @PostMapping("") // (POST) 127.0.0.1:9000/users
+    @PostMapping("")
     public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
         // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
         if(postUserReq.getEmail() == null){
@@ -99,6 +101,18 @@ public class UserController {
         }
     }
 
+    @ResponseBody
+    @PostMapping({"/userInfo"})
+    public BaseResponse<String> addUserInfo(@RequestBody UserInfoReq userInfoReq) throws BaseException{
+        try{
+            int userIdxByJwt = jwtService.getUserIdx();
+            userService.postUserInfo(userIdxByJwt, userInfoReq);
+            return new BaseResponse("유저 정보가 정상적으로 업로드 되었습니다.");
+        } catch(BaseException exception){
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
     /**
      * 유저정보변경 API
      * [PATCH] /users/:userIdx
@@ -108,14 +122,11 @@ public class UserController {
     @PatchMapping("/{userIdx}") // (PATCH) 127.0.0.1:9000/users/:userIdx
     public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
         try {
-            /* TODO: jwt는 다음주차에서 배울 내용입니다!
-            jwt에서 idx 추출.
+            // jwt에서 idx 추출
             int userIdxByJwt = jwtService.getUserIdx();
-            userIdx와 접근한 유저가 같은지 확인
             if(userIdx != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
-            */
 
             PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getNickName());
             userService.modifyUserName(patchUserReq);
