@@ -1,9 +1,13 @@
 package com.example.demo.src.post;
 
+import com.example.demo.config.BaseException;
+import com.example.demo.src.post.model.PostUserPostReq;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -22,6 +26,11 @@ public class PostsController {
         this.jwtService = jwtService;
     }
 
+    @ResponseBody
+    @PostMapping("/upload")
+    public void uploadPost(PostUserPostReq postUserPostReq) throws BaseException {
+        int userIdxByJwt = jwtService.getUserIdx();
+    }
 
     /**
      * 회원 조회 API
