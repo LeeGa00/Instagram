@@ -18,11 +18,13 @@ public class PostsController {
 
 
     private final PostsDao postsDao;
+
+    private final PostsService postsService;
     private final JwtService jwtService;
 
-
-    public PostsController(PostsDao postsDao, JwtService jwtService){
+    public PostsController(PostsDao postsDao, PostsService postsService, JwtService jwtService) {
         this.postsDao = postsDao;
+        this.postsService = postsService;
         this.jwtService = jwtService;
     }
 
@@ -30,6 +32,7 @@ public class PostsController {
     @PostMapping("/upload")
     public void uploadPost(PostUserPostReq postUserPostReq) throws BaseException {
         int userIdxByJwt = jwtService.getUserIdx();
+        postsService.uploadPost(userIdxByJwt, postUserPostReq.getContent());
     }
 
     /**

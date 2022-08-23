@@ -16,5 +16,14 @@ public class PostsDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public void createPost(int userIdx, String contents){
+        String postQuery = "INSERT INTO Posts (userIdx, content) VALUES (?,?)";
+        Object[] postParams = new Object[]{userIdx, contents};
+        this.jdbcTemplate.update(postQuery, postQuery);
 
+        /**
+         * String lastInserIdQuery = "select last_insert_id()";
+         * return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+         */
+    }
 }
