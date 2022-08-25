@@ -35,6 +35,12 @@ public class PostsController {
         postsService.uploadPost(userIdxByJwt, postUserPostReq.getContent());
     }
 
+    @ResponseBody
+    @PostMapping("/modify")
+    public void modifyPost(){
+        
+    }
+
     /**
      * 회원 조회 API
      * [GET] /users
