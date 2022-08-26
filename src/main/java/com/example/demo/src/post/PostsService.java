@@ -1,6 +1,7 @@
 package com.example.demo.src.post;
 
 
+import com.example.demo.src.post.model.ModifyUserPostReq;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,10 @@ public class PostsService {
 
     public void uploadPost(int userIdx, String contents){
         postsDao.createPost(userIdx, contents);
+    }
+
+    public void modifyPost(int userIdx, ModifyUserPostReq modifyUserPostReq){
+
     }
 
 }

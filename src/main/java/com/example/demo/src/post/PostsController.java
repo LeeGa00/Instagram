@@ -2,6 +2,7 @@ package com.example.demo.src.post;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.src.post.model.PostUserPostReq;
+import com.example.demo.src.user.model.PostUserReq;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +38,9 @@ public class PostsController {
 
     @ResponseBody
     @PostMapping("/modify")
-    public void modifyPost(){
-        
+    public void modifyPost(PostUserReq postUserReq) throws BaseException {
+        int userIdxByJwt = jwtService.getUserIdx();
+        //
     }
 
     /**

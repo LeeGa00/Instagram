@@ -19,11 +19,17 @@ public class PostsDao {
     public void createPost(int userIdx, String contents){
         String postQuery = "INSERT INTO Posts (userIdx, content) VALUES (?,?)";
         Object[] postParams = new Object[]{userIdx, contents};
-        this.jdbcTemplate.update(postQuery, postQuery);
+        this.jdbcTemplate.update(postQuery, postParams);
 
         /**
          * String lastInserIdQuery = "select last_insert_id()";
          * return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
          */
+    }
+
+    public void modifyPost(int userIdx, int postIdx, String contents){
+        String modifyQuery = "";
+        Object[] modifyParams = new Object[]{};
+        //
     }
 }
