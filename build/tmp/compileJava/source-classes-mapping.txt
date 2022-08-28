@@ -8,8 +8,12 @@ com/example/demo/src/user/model/PostUserReq.java
  com.example.demo.src.user.model.PostUserReq
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
+com/example/demo/src/post/model/PostUserPostReq.java
+ com.example.demo.src.post.model.PostUserPostReq
 com/example/demo/src/auth/model/SignUpReqDto.java
  com.example.demo.src.auth.model.SignUpReqDto
+com/example/demo/src/post/PostsService.java
+ com.example.demo.src.post.PostsService
 com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
 com/example/demo/src/feed/FeedDao.java
@@ -56,6 +60,8 @@ com/example/demo/src/user/model/DeleteUserRes.java
  com.example.demo.src.user.model.DeleteUserRes
 com/example/demo/src/user/model/User.java
  com.example.demo.src.user.model.User
+com/example/demo/src/post/model/ModifyUserPostReq.java
+ com.example.demo.src.post.model.ModifyUserPostReq
 com/example/demo/src/user/UserService.java
  com.example.demo.src.user.UserService
 com/example/demo/src/user/model/GetUserRes.java

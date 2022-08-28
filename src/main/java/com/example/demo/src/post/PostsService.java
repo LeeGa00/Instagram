@@ -25,7 +25,7 @@ public class PostsService {
     }
 
     public void modifyPost(int userIdx, ModifyUserPostReq modifyUserPostReq){
-
+        postsDao.modifyPost(userIdx, modifyUserPostReq.getPostIdx(), modifyUserPostReq.getContent());
     }
 
 }
