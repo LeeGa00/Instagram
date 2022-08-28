@@ -28,8 +28,8 @@ public class PostsDao {
     }
 
     public void modifyPost(int userIdx, int postIdx, String contents){
-        String modifyQuery = "";
-        Object[] modifyParams = new Object[]{};
-        //
+        String modifyQuery = "UPDATE Post AS p SET p.contents = ? WHERE p.userIdx = ? AND p.postIdx = ?";
+        Object[] modifyParams = new Object[]{contents, userIdx, postIdx};
+        this.jdbcTemplate.update(modifyQuery, modifyParams);
     }
 }
