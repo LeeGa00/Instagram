@@ -46,7 +46,7 @@ public class PostsController {
     @PatchMapping("/delete/{postIdx}")
     public void deletePost(@PathVariable ("postIdx") int postIdx) throws BaseException {
         int userIdxByJwt = jwtService.getUserIdx();
-        //
+        postsService.deletePost(userIdxByJwt, postIdx);
     }
 
     /**

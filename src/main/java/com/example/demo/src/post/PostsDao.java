@@ -32,4 +32,9 @@ public class PostsDao {
         Object[] modifyParams = new Object[]{contents, userIdx, postIdx};
         this.jdbcTemplate.update(modifyQuery, modifyParams);
     }
+
+    public void deletePost(int userIdx, int postIdx){
+        String deleteQuery = "UPDATE Post AS p SET p.status = 'INACTIVE' WHERE p.userIdx = ? AND p.postIdx = ?";
+        Object[] deleteParams = new Object[]{userIdx, postIdx};
+    }
 }

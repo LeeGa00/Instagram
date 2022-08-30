@@ -28,4 +28,7 @@ public class PostsService {
         postsDao.modifyPost(userIdx, modifyUserPostReq.getPostIdx(), modifyUserPostReq.getContent());
     }
 
+    public void deletePost(int userIdx, int postIdx){
+        postsDao.deletePost(userIdx, postIdx);
+    }
 }
