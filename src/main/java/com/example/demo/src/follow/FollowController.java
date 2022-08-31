@@ -1,18 +1,16 @@
-package com.example.demo.src.feed;
+package com.example.demo.src.follow;
 
-import com.example.demo.config.BaseResponse;
+import com.example.demo.src.feed.FeedDao;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
 @RequestMapping("/feeds")
-public class FeedController {
+public class FollowController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
@@ -20,16 +18,11 @@ public class FeedController {
     private final JwtService jwtService;
 
 
-    public FeedController(FeedDao feedDao, JwtService jwtService){
+    public FollowController(FeedDao feedDao, JwtService jwtService){
         this.feedDao = feedDao;
         this.jwtService = jwtService;
     }
 
-    @ResponseBody
-    @GetMapping("")
-    public BaseResponse<String> getUserFeed (){
-        return new BaseResponse<>("result");
-    }
 
     /**
      * 회원 조회 API

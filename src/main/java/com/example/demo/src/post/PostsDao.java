@@ -37,4 +37,12 @@ public class PostsDao {
         String deleteQuery = "UPDATE Post AS p SET p.status = 'INACTIVE' WHERE p.userIdx = ? AND p.postIdx = ?";
         Object[] deleteParams = new Object[]{userIdx, postIdx};
     }
+
+    public void getPostLike(int userIdx, int postIdx){
+
+    }
+
+    public void getPostComment(int userIdx, int postIdx){
+
+    }
 }
