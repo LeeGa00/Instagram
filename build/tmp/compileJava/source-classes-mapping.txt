@@ -8,6 +8,8 @@ com/example/demo/src/user/model/PostUserReq.java
  com.example.demo.src.user.model.PostUserReq
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
+com/example/demo/src/follow/FollowController.java
+ com.example.demo.src.follow.FollowController
 com/example/demo/src/post/model/PostUserPostReq.java
  com.example.demo.src.post.model.PostUserPostReq
 com/example/demo/src/auth/model/SignUpReqDto.java
