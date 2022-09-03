@@ -1,5 +1,6 @@
 package com.example.demo.src.feed;
 
+import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -14,12 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/feeds")
 public class FeedController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-
     private final FeedDao feedDao;
     private final JwtService jwtService;
-
-
+    
     public FeedController(FeedDao feedDao, JwtService jwtService){
         this.feedDao = feedDao;
         this.jwtService = jwtService;
@@ -27,7 +25,8 @@ public class FeedController {
 
     @ResponseBody
     @GetMapping("")
-    public BaseResponse<String> getUserFeed (){
+    public BaseResponse<String> getUserFeed () throws BaseException {
+        int userIdxByJwt = jwtService.getUserIdx();
         return new BaseResponse<>("result");
     }
 
