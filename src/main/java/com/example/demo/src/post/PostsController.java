@@ -48,4 +48,10 @@ public class PostsController {
         int userIdxByJwt = jwtService.getUserIdx();
         postsService.deletePost(userIdxByJwt, postIdx);
     }
+
+    @ResponseBody
+    @PostMapping("/comment/{postIdx}")
+    public void commentPost(@PathVariable ("postIdx") int postIdx) throws BaseException {
+        int userIdxByJwt = jwtService.getUserIdx();
+    }
 }

@@ -17,8 +17,8 @@ public class FeedDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void getUserFeed(int userIdx){
-
+    public void getUserFeed(int userIdx, int offset){
+        String getUserFeed = "";
     }
 
     public GetUserRes getUsersByEmail(String email){
