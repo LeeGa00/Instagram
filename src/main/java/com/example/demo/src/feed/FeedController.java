@@ -17,7 +17,7 @@ public class FeedController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final FeedDao feedDao;
     private final JwtService jwtService;
-    
+
     public FeedController(FeedDao feedDao, JwtService jwtService){
         this.feedDao = feedDao;
         this.jwtService = jwtService;

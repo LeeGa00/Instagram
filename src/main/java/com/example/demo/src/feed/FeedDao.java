@@ -17,6 +17,10 @@ public class FeedDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public void getUserFeed(int userIdx){
+
+    }
+
     public GetUserRes getUsersByEmail(String email){
         String getUsersByEmailQuery = "select userIdx,name,nickName,email from User where email=?";
         String getUsersByEmailParams = email;
