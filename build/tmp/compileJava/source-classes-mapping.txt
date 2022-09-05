@@ -24,8 +24,16 @@ com/example/demo/src/post/PostsController.java
  com.example.demo.src.post.PostsController
 com/example/demo/src/user/model/PostLoginRes.java
  com.example.demo.src.user.model.PostLoginRes
+com/example/demo/src/auth/model/SiteJoinReq.java
+ com.example.demo.src.auth.model.SiteJoinReq
+com/example/demo/src/feed/FeedService.java
+ com.example.demo.src.feed.FeedService
+com/example/demo/src/follow/FollowService.java
+ com.example.demo.src.follow.FollowService
 com/example/demo/src/user/UserDao.java
  com.example.demo.src.user.UserDao
+com/example/demo/src/follow/FollowDao.java
+ com.example.demo.src.follow.FollowDao
 com/example/demo/config/BaseResponseStatus.java
  com.example.demo.config.BaseResponseStatus
 com/example/demo/src/user/model/PatchUserReq.java
