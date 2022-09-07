@@ -45,4 +45,9 @@ public class PostsDao {
     public void getPostComment(int userIdx, int postIdx){
 
     }
+
+    public int getUserIdxByPostIdx(int postIdx){
+        String getUploaderQuery = "SELECT userIdx From Posts WHERE postIdx = ?";
+        return this.jdbcTemplate.queryForObject(getUploaderQuery, int.class, postIdx);
+    }
 }

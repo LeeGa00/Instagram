@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
 import static com.example.demo.config.BaseResponseStatus.POST_NOT_EXIST;
 
 // Service Create, Update, Delete 의 로직 처리
@@ -42,7 +43,10 @@ public class PostsService {
         }
     }
 
-    public int existPostGetUserIdx(int postIdx){
-        return 0;
+    public int existPostGetUserIdx(int postIdx) throws BaseException{
+        int userIdx = 0;
+        try{ userIdx = postsDao.getUserIdxByPostIdx(postIdx); }
+        catch (Exception exception){ throw new BaseException(DATABASE_ERROR); }
+        return userIdx;
     }
 }
