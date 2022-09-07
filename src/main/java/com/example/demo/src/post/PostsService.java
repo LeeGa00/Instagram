@@ -41,6 +41,8 @@ public class PostsService {
         if (postOwner == 0){
             throw new BaseException(POST_NOT_EXIST);
         }
+        if (checkUserFollowed(userIdx, postOwner))
+            postsDao.createPostComment(userIdx, postOwner, comment);
     }
 
     public int existPostGetUserIdx(int postIdx) throws BaseException{
@@ -48,5 +50,11 @@ public class PostsService {
         try{ userIdx = postsDao.getUserIdxByPostIdx(postIdx); }
         catch (Exception exception){ throw new BaseException(DATABASE_ERROR); }
         return userIdx;
+    }
+
+    public boolean checkUserFollowed(int userIdx, int uploader){
+        if (postsDao.checkUserIdxFollowed(userIdx, uploader) == 0)
+            return true;
+        return false;
     }
 }
