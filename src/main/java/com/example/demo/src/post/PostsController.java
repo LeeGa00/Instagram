@@ -54,7 +54,14 @@ public class PostsController {
     @PostMapping("/comment/upload")
     public BaseResponse<String> commentPost(@RequestBody PostCommentReq postCommentReq) throws BaseException {
         int userIdxByJwt = jwtService.getUserIdx();
+        //날짜 시간까지 포함되도록 수정
         postsService.commentPost(userIdxByJwt, postCommentReq.getPostIdx(), postCommentReq.getContent());
         return new BaseResponse<>("코멘트 업로드에 성공하였습니다.");
+    }
+
+    @ResponseBody
+    @GetMapping("/comments")
+    public void getPostComment(@PathVariable("postIdx") int postIdx) throws BaseException{
+        int userIdxByJwt = jwtService.getUserIdx();
     }
 }
