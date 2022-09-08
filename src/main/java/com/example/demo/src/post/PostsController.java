@@ -3,6 +3,7 @@ package com.example.demo.src.post;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.src.post.model.ModifyUserPostReq;
+import com.example.demo.src.post.model.PostCommentReq;
 import com.example.demo.src.post.model.PostUserPostReq;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -50,8 +51,10 @@ public class PostsController {
     }
 
     @ResponseBody
-    @PostMapping("/comment/{postIdx}")
-    public void commentPost(@PathVariable ("postIdx") int postIdx) throws BaseException {
+    @PostMapping("/comment/upload")
+    public BaseResponse<String> commentPost(@RequestBody PostCommentReq postCommentReq) throws BaseException {
         int userIdxByJwt = jwtService.getUserIdx();
+        postsService.commentPost(userIdxByJwt, postCommentReq.getPostIdx(), postCommentReq.getContent());
+        return new BaseResponse<>("코멘트 업로드에 성공하였습니다.");
     }
 }
