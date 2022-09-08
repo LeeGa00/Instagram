@@ -52,6 +52,9 @@ public class PostsDao {
     }
 
     public int checkUserIdxFollowed(int userIdx, int uploader){
-        return 1;
+        //DB 테이블 칼럼 확인하고 조건 수섲 필요
+        String checkFollowQuery = "SELECT EXISTS(SELECT userIdx FROM Follow WHERE userIdx = ? AND follow = ?)";
+        Object checkParams = new Object[]{uploader, userIdx};
+        return this.jdbcTemplate.queryForObject(checkFollowQuery, int.class, checkParams);
     }
 }
