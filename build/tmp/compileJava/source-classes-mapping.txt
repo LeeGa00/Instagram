@@ -46,8 +46,12 @@ com/example/demo/src/user/model/DeleteUserReq.java
  com.example.demo.src.user.model.DeleteUserReq
 com/example/demo/src/auth/AuthDao.java
  com.example.demo.src.auth.AuthDao
+com/example/demo/src/follow/model/FollowReq.java
+ com.example.demo.src.follow.model.FollowReq
 com/example/demo/src/user/model/PostLoginReq.java
  com.example.demo.src.user.model.PostLoginReq
+com/example/demo/src/post/model/PostCommentReq.java
+ com.example.demo.src.post.model.PostCommentReq
 com/example/demo/src/auth/model/SignUpReq.java
  com.example.demo.src.auth.model.SignUpReq
 com/example/demo/src/auth/AuthService.java
