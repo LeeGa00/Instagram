@@ -3,6 +3,7 @@ package com.example.demo.src.follow;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.src.feed.FeedDao;
+import com.example.demo.src.follow.model.FollowReq;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,9 @@ public class FollowController {
 
     @ResponseBody
     @GetMapping("/new")
-    public BaseResponse<String> followUser (@PathVariable("userIdx") int userIdx) throws BaseException {
+    public BaseResponse<String> followUser (@RequestBody FollowReq followReq) throws BaseException {
         int userIdxByJwt = jwtService.getUserIdx();
+
         return new BaseResponse<>("result");
     }
 

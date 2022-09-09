@@ -19,5 +19,8 @@ public class FollowService {
         this.jwtService = jwtService;
     }
 
-
+    public String FollowUser(int userIdx, int follower){
+        //비공계 유저인지 확인 필요
+        return "result";
+    }
 }
