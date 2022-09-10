@@ -21,6 +21,15 @@ public class FollowService {
 
     public String FollowUser(int userIdx, int follower){
         //비공계 유저인지 확인 필요
-        return "result";
+        if(isPublicUser(follower)){
+
+        } else {
+            
+        }
+        return "성공적으로 유저를 팔로우하였습니다.";
+    }
+
+    public boolean isPublicUser(int userIdx){
+        return true;
     }
 }

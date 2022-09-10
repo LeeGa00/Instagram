@@ -2,7 +2,6 @@ package com.example.demo.src.follow;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.feed.FeedDao;
 import com.example.demo.src.follow.model.FollowReq;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -15,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class FollowController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final FeedDao feedDao;
+    private final FollowService followService;
     private final JwtService jwtService;
 
-    public FollowController(FeedDao feedDao, JwtService jwtService){
-        this.feedDao = feedDao;
+    public FollowController(FollowService followService, JwtService jwtService){
+        this.followService = followService;
         this.jwtService = jwtService;
     }
 
@@ -27,8 +26,10 @@ public class FollowController {
     @GetMapping("/new")
     public BaseResponse<String> followUser (@RequestBody FollowReq followReq) throws BaseException {
         int userIdxByJwt = jwtService.getUserIdx();
-
-        return new BaseResponse<>("result");
+        if (userIdxByJwt != followReq.getUserIdx())
+            return new BaseResponse<>("유저에 대해 잘못된 요청입니다.");
+        String result = followService.FollowUser(userIdxByJwt, followReq.getFollowerIdx());
+        return new BaseResponse<>(result);
     }
 
     /**
