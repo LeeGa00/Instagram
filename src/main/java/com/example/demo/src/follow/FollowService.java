@@ -24,7 +24,7 @@ public class FollowService {
         if(isPublicUser(follower)){
 
         } else {
-            
+
         }
         return "성공적으로 유저를 팔로우하였습니다.";
     }

@@ -15,4 +15,10 @@ public class FollowDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public String accountIsPublic(int userIdx){
+        String checkQuery = "SELECT ";  //비공계 유저 설정 상태값 DB에 설정하기
+        //return this.jdbcTemplate.queryForObject();
+        return checkQuery; //삭제코드
+    }
+
 }
