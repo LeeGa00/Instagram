@@ -22,9 +22,9 @@ public class FollowService {
     public String FollowUser(int userIdx, int follower){
         //비공계 유저인지 확인 필요
         if(isPublicUser(follower)){
-
+            followDao.newFollow(userIdx, follower);
         } else {
-
+            //승인 요청
         }
         return "성공적으로 유저를 팔로우하였습니다.";
     }
