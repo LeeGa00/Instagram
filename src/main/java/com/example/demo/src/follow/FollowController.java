@@ -23,13 +23,25 @@ public class FollowController {
     }
 
     @ResponseBody
-    @GetMapping("/new")
+    @PostMapping("/new")
     public BaseResponse<String> followUser (@RequestBody FollowReq followReq) throws BaseException {
         int userIdxByJwt = jwtService.getUserIdx();
         if (userIdxByJwt != followReq.getUserIdx())
             return new BaseResponse<>("유저에 대해 잘못된 요청입니다.");
         String result = followService.FollowUser(userIdxByJwt, followReq.getFollowerIdx());
         return new BaseResponse<>(result);
+    }
+
+    @ResponseBody
+    @PostMapping("/accept")
+    public BaseResponse<String> acceptFollowRequest (@PathVariable ("followeeIdx") int followeeIdx) {
+        try{
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            return new BaseResponse<>("result");
+        } catch(BaseException exception){
+            return new BaseResponse<>(exception.getStatus());
+        }
     }
 
     /**

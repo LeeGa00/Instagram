@@ -26,7 +26,7 @@ public class FollowService {
         try {
             //비공계 유저인지 확인 필요
             if (isPublicUser(follower)) {
-                followDao.newFollowActive(userIdx, follower);
+                followDao.newFollowActive(userIdx, follower); //active 상태로 생성
             } else {
                 //Inactive 상태로 row 생성
                 followDao.newFollowInactive(userIdx, follower);
