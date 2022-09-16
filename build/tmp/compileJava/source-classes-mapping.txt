@@ -14,8 +14,6 @@ com/example/demo/src/post/model/PostUserPostReq.java
  com.example.demo.src.post.model.PostUserPostReq
 com/example/demo/src/auth/model/SignUpReqDto.java
  com.example.demo.src.auth.model.SignUpReqDto
-com/example/demo/src/follow/model/FollowerInfo.java
- com.example.demo.src.follow.model.FollowerInfo
 com/example/demo/src/post/PostsService.java
  com.example.demo.src.post.PostsService
 com/example/demo/utils/ValidationRegex.java
