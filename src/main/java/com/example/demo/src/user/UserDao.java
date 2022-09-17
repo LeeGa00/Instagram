@@ -70,7 +70,7 @@ public class UserDao {
     }
 
     public void postUserInfo(int userIdx, String name, String profileImg, String birthday, String phone) {
-        String postUserInfoQuery = "UPDATE User AS u SET u.name = ?, u.profileImg = ?, u.birthday = ? u.phone = ? WHERE u.userIdx = ?";
+        String postUserInfoQuery = "UPDATE User AS u SET u.name = ?, u.profileImg = ?, u.birthday = ?, u.phone = ? WHERE u.userIdx = ?";
         Object[] userInfoParams = new Object[]{name, profileImg, birthday, phone, userIdx};
         this.jdbcTemplate.update(postUserInfoQuery, userInfoParams);
     }

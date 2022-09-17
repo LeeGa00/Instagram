@@ -70,7 +70,7 @@ public class UserController {
     public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx") int userIdx) {
         try{
             GetUserRes getUsersRes = userService.getUsersByIdx(userIdx);
-            return new BaseResponse<>(getUsersRes);
+            return new BaseResponse<>(getUsersRes);     //일반 정보 조회 (게시글은 못봄)
         } catch(BaseException exception){
             return new BaseResponse<>(exception.getStatus());
         }

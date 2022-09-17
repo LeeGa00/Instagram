@@ -1,57 +1,7 @@
 com/example/demo/utils/AuthUtils.java
  com.example.demo.utils.AuthUtils
-com/example/demo/src/post/PostsDao.java
- com.example.demo.src.post.PostsDao
-com/example/demo/utils/SHA256.java
- com.example.demo.utils.SHA256
-com/example/demo/src/user/model/PostUserReq.java
- com.example.demo.src.user.model.PostUserReq
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
-com/example/demo/src/follow/FollowController.java
- com.example.demo.src.follow.FollowController
-com/example/demo/src/post/model/PostUserPostReq.java
- com.example.demo.src.post.model.PostUserPostReq
-com/example/demo/src/auth/model/SignUpReqDto.java
- com.example.demo.src.auth.model.SignUpReqDto
-com/example/demo/src/post/PostsService.java
- com.example.demo.src.post.PostsService
-com/example/demo/utils/ValidationRegex.java
- com.example.demo.utils.ValidationRegex
-com/example/demo/src/feed/FeedDao.java
- com.example.demo.src.feed.FeedDao
-com/example/demo/src/post/PostsController.java
- com.example.demo.src.post.PostsController
-com/example/demo/src/user/model/PostLoginRes.java
- com.example.demo.src.user.model.PostLoginRes
-com/example/demo/src/auth/model/SiteJoinReq.java
- com.example.demo.src.auth.model.SiteJoinReq
-com/example/demo/src/feed/FeedService.java
- com.example.demo.src.feed.FeedService
-com/example/demo/src/follow/FollowService.java
- com.example.demo.src.follow.FollowService
-com/example/demo/src/user/UserDao.java
- com.example.demo.src.user.UserDao
-com/example/demo/src/follow/FollowDao.java
- com.example.demo.src.follow.FollowDao
-com/example/demo/config/BaseResponseStatus.java
- com.example.demo.config.BaseResponseStatus
-com/example/demo/src/user/model/PatchUserReq.java
- com.example.demo.src.user.model.PatchUserReq
-com/example/demo/src/auth/model/IdPwRes.java
- com.example.demo.src.auth.model.IdPwRes
-com/example/demo/src/WebSecurityConfig.java
- com.example.demo.src.WebSecurityConfig
-com/example/demo/src/user/model/DeleteUserReq.java
- com.example.demo.src.user.model.DeleteUserReq
-com/example/demo/src/auth/AuthDao.java
- com.example.demo.src.auth.AuthDao
-com/example/demo/src/follow/model/FollowReq.java
- com.example.demo.src.follow.model.FollowReq
-com/example/demo/src/user/model/PostLoginReq.java
- com.example.demo.src.user.model.PostLoginReq
-com/example/demo/src/post/model/PostCommentReq.java
- com.example.demo.src.post.model.PostCommentReq
 com/example/demo/src/auth/model/SignUpReq.java
  com.example.demo.src.auth.model.SignUpReq
 com/example/demo/src/auth/AuthService.java
@@ -60,33 +10,27 @@ com/example/demo/config/secret/Secret.java
  com.example.demo.config.secret.Secret
 com/example/demo/src/auth/model/UserInfoReq.java
  com.example.demo.src.auth.model.UserInfoReq
-com/example/demo/src/user/model/PostUserRes.java
- com.example.demo.src.user.model.PostUserRes
-com/example/demo/src/user/UserController.java
- com.example.demo.src.user.UserController
+com/example/demo/src/auth/model/SignUpReqDto.java
+ com.example.demo.src.auth.model.SignUpReqDto
 com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
+com/example/demo/src/auth/model/SiteJoinReq.java
+ com.example.demo.src.auth.model.SiteJoinReq
 com/example/demo/src/feed/FeedController.java
  com.example.demo.src.feed.FeedController
 com/example/demo/src/auth/AuthController.java
  com.example.demo.src.auth.AuthController
-com/example/demo/src/user/model/DeleteUserRes.java
- com.example.demo.src.user.model.DeleteUserRes
-com/example/demo/src/user/model/User.java
- com.example.demo.src.user.model.User
-com/example/demo/src/post/model/ModifyUserPostReq.java
- com.example.demo.src.post.model.ModifyUserPostReq
-com/example/demo/src/user/UserService.java
- com.example.demo.src.user.UserService
-com/example/demo/src/user/model/GetUserRes.java
- com.example.demo.src.user.model.GetUserRes
+com/example/demo/config/BaseResponseStatus.java
+ com.example.demo.config.BaseResponseStatus
+com/example/demo/src/auth/model/IdPwRes.java
+ com.example.demo.src.auth.model.IdPwRes
 com/example/demo/config/BaseException.java
  com.example.demo.config.BaseException
 com/example/demo/DemoApplication.java
  com.example.demo.DemoApplication
 com/example/demo/utils/JwtService.java
  com.example.demo.utils.JwtService
-com/example/demo/src/user/UserProvider.java
- com.example.demo.src.user.UserProvider
+com/example/demo/src/auth/AuthDao.java
+ com.example.demo.src.auth.AuthDao
 com/example/demo/src/auth/model/SignupRes.java
  com.example.demo.src.auth.model.SignupRes
