@@ -12,6 +12,6 @@ public class GetUserRes {
     private int userIdx;
     private String name;
     private String nickName;
+    private String profileImg;
     private String email;
-
 }

@@ -67,9 +67,9 @@ public class UserController {
      */
     @ResponseBody
     @GetMapping("/{userIdx}")
-    public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx")int userIdx) {
+    public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx") int userIdx) {
         try{
-            GetUserRes getUsersRes = userProvider.getUsersByIdx(userIdx);
+            GetUserRes getUsersRes = userService.getUsersByIdx(userIdx);
             return new BaseResponse<>(getUsersRes);
         } catch(BaseException exception){
             return new BaseResponse<>(exception.getStatus());

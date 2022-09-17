@@ -4,6 +4,7 @@ package com.example.demo.src.user;
 import com.example.demo.config.BaseException;
 
 import com.example.demo.src.auth.model.UserInfoReq;
+import com.example.demo.src.user.model.GetUserRes;
 import com.example.demo.src.user.model.PatchUserReq;
 import com.example.demo.src.user.model.PostUserReq;
 import com.example.demo.src.user.model.PostUserRes;
@@ -78,4 +79,31 @@ public class UserService {
         }
     }
 
+    public GetUserRes getUsersByIdx(int userIdx) throws BaseException{
+        try{
+            GetUserRes getUsersRes = userDao.getUsersByIdx(userIdx);
+            return getUsersRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public GetUserRes getUsersByEmail(String email) throws BaseException{
+        try{
+            GetUserRes getUsersRes = userDao.getUsersByEmail(email);
+            return getUsersRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public int checkEmail(String email) throws BaseException{
+        try{
+            return userDao.checkEmail(email);
+        } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
