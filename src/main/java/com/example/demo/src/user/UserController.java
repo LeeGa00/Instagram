@@ -119,7 +119,7 @@ public class UserController {
      * @return BaseResponse<String>
      */
     @ResponseBody
-    @PatchMapping("/{userIdx}") // (PATCH) 127.0.0.1:9000/users/:userIdx
+    @PatchMapping("/{userIdx}/nickName")
     public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
         try {
             // jwt에서 idx 추출
@@ -138,4 +138,23 @@ public class UserController {
         }
     }
 
+    @ResponseBody
+    @PatchMapping("/{userIdx}/password")
+    public BaseResponse<String> modifyUserPwd(@PathVariable("userIdx") int userIdx, @RequestBody User user){
+        try {
+            // jwt에서 idx 추출
+            int userIdxByJwt = jwtService.getUserIdx();
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+
+            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getNickName());
+
+
+            String result = "";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }

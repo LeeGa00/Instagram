@@ -71,8 +71,20 @@ public class UserService {
     public void modifyUserName(PatchUserReq patchUserReq) throws BaseException {
         try{
             int result = userDao.modifyUserName(patchUserReq);
-            if(result == 0){
+            if (result == 0){
                 throw new BaseException(MODIFY_FAIL_USERNAME);
+            }
+        } catch(Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    /*비밀번호 재확인 방법 알아보기*/
+    public void modifyUserPwd(PatchUserReq patchUserReq) throws BaseException {
+        try{
+            int result = userDao.modifyUserName(patchUserReq);
+            if (result == 0){
+                //throw new BaseException(MODIFY_FAIL_PASSWORD);
             }
         } catch(Exception exception){
             throw new BaseException(DATABASE_ERROR);
