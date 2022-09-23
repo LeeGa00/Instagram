@@ -100,7 +100,6 @@ public class UserService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
     public GetUserRes getUsersByEmail(String email) throws BaseException{
         try{
             GetUserRes getUsersRes = userDao.getUsersByEmail(email);
@@ -110,7 +109,6 @@ public class UserService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
     public int checkEmail(String email) throws BaseException{
         try{
             return userDao.checkEmail(email);

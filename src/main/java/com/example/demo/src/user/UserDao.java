@@ -1,9 +1,7 @@
 package com.example.demo.src.user;
 
 
-import com.example.demo.src.user.model.GetUserRes;
-import com.example.demo.src.user.model.PatchUserReq;
-import com.example.demo.src.user.model.PostUserReq;
+import com.example.demo.src.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -89,6 +87,13 @@ public class UserDao {
         Object[] modifyUserNameParams = new Object[]{patchUserReq.getNickName(), patchUserReq.getUserIdx()};
 
         return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
+    }
+
+    public void modifyUserInfo(User user){
+        //쿼리랑 파라미터 수정하기
+        String modifyInfoQuery = "";
+        Object[] modifyParams = new Object[]{user.getUserIdx(), user.getName(), user.getNickName(), user.getEmail()};
+        this.jdbcTemplate.update(modifyInfoQuery, modifyParams);
     }
 
 }
