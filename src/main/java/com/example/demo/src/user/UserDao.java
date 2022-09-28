@@ -91,8 +91,8 @@ public class UserDao {
 
     public void modifyUserInfo(User user){
         //쿼리랑 파라미터 수정하기
-        String modifyInfoQuery = "";
-        Object[] modifyParams = new Object[]{user.getUserIdx(), user.getName(), user.getNickName(), user.getEmail()};
+        String modifyInfoQuery = "UPDATE User SET name = ?, nickName = ?, email = ? WHERE userIdx = ?";
+        Object[] modifyParams = new Object[]{user.getUserIdx(), user.getName(), user.getNickName(), user.getEmail()}; //수정 필요
         this.jdbcTemplate.update(modifyInfoQuery, modifyParams);
     }
 
